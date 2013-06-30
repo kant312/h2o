@@ -105,10 +105,20 @@ function Grid(c, width, height)
 	 */
 	self.generateMap = function()
 	{
-		var tileType = '';
+		var tileType = '',
+			neighbours,
+			probability;
 		for(var x=0; x < width; x++) {
 			for(var y=0; y < height; y++) {
-				tileType = (Math.random() > 0.85) ? 's' : 'g';
+				neighbours = self.getNeighbours(x,y,2);
+				probability = 0;
+				for(var idx in neighbours) {
+					if( neighbours[idx].type === 's' ) {
+						probability += 0.1;
+					}
+				}
+
+				tileType = (Math.random() > (0.98 - probability)) ? 's' : 'g';
 				self.addTile({
 					x: x,
 					y: y,
@@ -116,6 +126,36 @@ function Grid(c, width, height)
 				});
 			}
 		}
+	};
+
+	/**
+	 * Get a tile's neighbours
+	 *
+	 * @param int x X coordinate
+	 * @param int y Y coordinate
+	 * @param int area Number of tiles in which to search for neighours (1 by default)
+	 *
+	 * @return array
+	 */
+	self.getNeighbours = function(x, y, area)
+	{
+		var neighbours = [],
+			tileKey;
+
+		if( typeof area === 'undefined' ) {
+			area = 1;
+		}
+
+		for(var nx = x-area; nx < x+area; nx++) {
+			for(var ny = y-area; ny < y+area; ny++) {
+				tileKey = self.getTileKey(nx, ny);
+				if( self.tiles.hasOwnProperty( tileKey ) ) {
+					neighbours.push(self.tiles[tileKey]);
+				}
+			}
+		}
+
+		return neighbours;
 	};
 
 }
