@@ -5,86 +5,85 @@ function Grid(c, width, height)
 {
 	var COORDS_DELIMITER = ':';
 
-	var gridColor = "rgb(100,100,100)"
-		blockSize = 20,
-		blocks = {},
-		blockTypes = {
-			w : { color: "rgb(0,100,240)" }
-		};
+	var self = this;
+
+	self.gridColor = "rgb(100,100,100)";
+	self.tileSize = 20;
+	self.tileRenderer = new TileRenderer(c, self);
+	self.tiles = {};
 
 	/**
 	 * Draw the game grid
 	 */
-	this.draw = function()
+	self.draw = function()
 	{
 		//Draw the grid structure
-		this.drawStructure();
-		//Draw blocks
-		this.drawBlocks();
+		self.drawStructure();
+		//Draw tiles
+		self.drawTiles();
 	};
 
 	/**
 	 * Draw the structure
 	 */
-	this.drawStructure = function()
+	self.drawStructure = function()
 	{
-		c.strokeStyle = gridColor;
+		c.strokeStyle = self.gridColor;
 		for(var x=0; x < width; x++) {
 			for(var y=0; y < height; y++) {
-				c.strokeRect( (x*blockSize), (y*blockSize), blockSize, blockSize );
+				c.strokeRect( (x*self.tileSize), (y*self.tileSize), self.tileSize, self.tileSize );
 			}
 		}
 	};
 
 	/**
-	 * Draw blocks
+	 * Draw tiles
 	 */
-	this.drawBlocks = function()
+	self.drawTiles = function()
 	{
-		//Loop on blocks
-		for(var idx in blocks) {
-			var blockType = blocks[idx],
+		//Loop on tiles
+		for(var idx in self.tiles) {
+			var tile = self.tiles[idx],
 				coords = idx.split(COORDS_DELIMITER),
 				x = coords[0],
 				y = coords[1];
 
-			c.fillStyle = blockTypes[blockType].color;
-			c.fillRect( (x*blockSize), (y*blockSize), blockSize, blockSize );
+			self.tileRenderer.render(tile);
 		}
 	};
 
 	/**
-	 * Get a block's key
+	 * Get a tile's key
 	 */
-	this.getBlockKey = function(x,y)
+	self.getTileKey = function(x,y)
 	{
 		return x + COORDS_DELIMITER + y;
 	}
 
 	/**
-	 * Add a block to the grid
+	 * Add a tile to the grid
 	 */
-	this.addBlock = function(x,y,type)
+	self.addTile = function(tile)
 	{
-		blocks[ this.getBlockKey(x,y) ] = type;
+		self.tiles[ self.getTileKey(tile.x,tile.y) ] = tile;
 	};
 
 	/**
-	 * Remove a block from the grid
+	 * Remove a tile from the grid
 	 */
-	this.removeBlock = function(x,y)
+	self.removeTile = function(x,y)
 	{
-		delete blocks[ this.getBlockKey(x,y) ];
+		delete self.tiles[ self.getTileKey(x,y) ];
 	};
 
 	/**
-	 * Get a block from the grid
+	 * Get a tile from the grid
 	 */
-	this.getBlock = function(x,y)
+	self.getTile = function(x,y)
 	{
-		var blockKey = this.getBlockKey(x,y);
-		if( blocks.hasOwnProperty(blockKey) ) {
-			return blocks[ blockKey ];
+		var tileKey = self.getTileKey(x,y);
+		if( self.tiles.hasOwnProperty(tileKey) ) {
+			return self.tiles[ tileKey ];
 		}
 
 		return null;
@@ -93,12 +92,30 @@ function Grid(c, width, height)
 	/**
 	 * Given a mouse click event, find the corresponding grid coordinates
 	 */
-	this.getCoordinates = function(x,y)
+	self.getCoordinates = function(x,y)
 	{
-		var gridX = Math.floor(x/blockSize),
-			gridY = Math.floor(y/blockSize);
+		var gridX = Math.floor(x/self.tileSize),
+			gridY = Math.floor(y/self.tileSize);
 
 		return {x: gridX, y: gridY};
+	};
+
+	/**
+	 * Generate a new map
+	 */
+	self.generateMap = function()
+	{
+		var tileType = '';
+		for(var x=0; x < width; x++) {
+			for(var y=0; y < height; y++) {
+				tileType = (Math.random() > 0.85) ? 's' : 'g';
+				self.addTile({
+					x: x,
+					y: y,
+					type: tileType
+				});
+			}
+		}
 	};
 
 }

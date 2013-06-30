@@ -11,6 +11,8 @@ function h2o(elt)
 
 	//Create the grid
 	grid = new Grid(c, gridWidth, gridHeight);
+	//Generate a new map
+	grid.generateMap();
 
 	//Clear the game container
 	self.clear = function()
@@ -35,12 +37,16 @@ function h2o(elt)
 			x = coords.x,
 			y = coords.y;
 
-		//Add or remove a block, depending if a block was already there or not
-		if( grid.getBlock(x, y) === null ) {
-			grid.addBlock(x, y, 'w');
+		//Add or remove a tile, depending if a tile was already there or not
+		if( grid.getTile(x, y) === null ) {
+			grid.addTile({
+				x: x,
+				y: y,
+				type: 'w'
+			});
 		}
 		else {
-			grid.removeBlock(x, y);
+			grid.removeTile(x, y);
 		}
 
 		//Redraw the game container
