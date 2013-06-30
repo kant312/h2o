@@ -6,8 +6,8 @@ function h2o(elt)
 	var c = elt.getContext('2d'),
 		self = this,
 		grid,
-		gridWidth = 16,
-		gridHeight = 12;
+		gridWidth = 40,
+		gridHeight = 30;
 
 	//Create the grid
 	grid = new Grid(c, gridWidth, gridHeight);

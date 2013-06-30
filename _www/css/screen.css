@@ -1,3 +1,10 @@
-body { background:#dedede; margin:10px auto 0; width:940px; }
+body { 
+	background:#444444; 
+	color:#eee;
+	font:16px/1.5 Georgia, sans-serif;
+	margin:10px auto 0; 
+	text-align:center; 
+	width:940px; 
+}
 
 #game-container { position: relative; }

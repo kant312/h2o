@@ -6,7 +6,7 @@ function Grid(c, width, height)
 	var COORDS_DELIMITER = ':';
 
 	var gridColor = "rgb(100,100,100)"
-		blockSize = 48,
+		blockSize = 20,
 		blocks = {},
 		blockTypes = {
 			w : { color: "rgb(0,100,240)" }
