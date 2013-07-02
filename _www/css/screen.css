@@ -7,4 +7,40 @@ body {
 	width:940px; 
 }
 
-#game-container { position: relative; }
+ul, 
+ol { list-style:none; margin:0; padding; }
+
+#game-and-tools { overflow:hidden; width:100%; }
+
+#game-container { float:left; position: relative; }
+
+#tools,
+#status { border:1px solid #999;}
+
+#tools { 
+	float:right; 
+	width:120px;
+	height:600px;
+}
+
+.tool {
+	cursor:pointer;
+	display:block;
+	float:left;
+	width:60px;
+	height:60px;
+	text-align:center;
+	line-height:60px;
+}
+
+.pump { background:#996622; }
+.dam { background:#883322; }
+
+.selected { border:1px solid #5599ee; width:58px; height:58px; }
+
+#status {
+	clear:both;
+	height:150px;
+	margin-top:1em;
+	overflow:hidden;
+}

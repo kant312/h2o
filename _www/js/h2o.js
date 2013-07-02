@@ -6,6 +6,7 @@ function h2o(elt)
 	var c = elt.getContext('2d'),
 		self = this,
 		grid,
+		tools,
 		gridWidth = 40,
 		gridHeight = 30;
 
@@ -28,6 +29,9 @@ function h2o(elt)
 		//Then we draw the grid
 		grid.draw();
 	};
+
+	//Build the tools window
+	tools = new Tools(c, document.getElementById('tools'));
 
 	//Listen to mouse clicks
 	self.mouseClicked = function(e)

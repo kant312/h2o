@@ -3,15 +3,24 @@
 <head>
 	<link rel="stylesheet" type="text/css" media="screen" href="css/screen.css" />
 	<script type="text/javascript" src="js/tileRenderer.js"></script>
+	<script type="text/javascript" src="js/tools.js"></script>
 	<script type="text/javascript" src="js/grid.js"></script>
 	<script type="text/javascript" src="js/h2o.js"></script>
 </head>
 <body>
 	<h1>H2O</h1>
-	<!-- Canvas zone -->
-	<canvas id="game-container" width="800" height="600">
-		Your browser is obiously too old. Sorry :\
-	</canvas>
+	<div id="game-and-tools">
+		<!-- Canvas zone -->
+		<canvas id="game-container" width="800" height="600">
+			Your browser is obiously too old. Sorry :\
+		</canvas>
+		<!-- Tools zone -->
+		<div id="tools"></div>
+	</div>
+	<!-- Status zone -->
+	<div id="status">
+		<ul></ul>
+	</div>
 
 </body>
 </html>
