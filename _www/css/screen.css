@@ -3,14 +3,17 @@ body {
 	color:#eee;
 	font:16px/1.5 Georgia, sans-serif;
 	margin:10px auto 0; 
-	text-align:center; 
 	width:940px; 
 }
 
-ul, 
-ol { list-style:none; margin:0; padding; }
+h1 { text-align:center; }
 
-#game-and-tools { overflow:hidden; width:100%; }
+ul, 
+ol { list-style:none; margin:0; padding:0; }
+
+h2 { background:#666; color:#eee; padding:0 .5em; margin:0; font-size:1em; text-align:left;}
+
+#game-and-tools { overflow:hidden; text-align:center; width:100%; }
 
 #game-container { float:left; position: relative; }
 
@@ -35,6 +38,7 @@ ol { list-style:none; margin:0; padding; }
 
 .pump { background:#996622; }
 .dam { background:#883322; }
+.channel { background:#999; }
 
 .selected { border:1px solid #5599ee; width:58px; height:58px; }
 
@@ -42,5 +46,10 @@ ol { list-style:none; margin:0; padding; }
 	clear:both;
 	height:150px;
 	margin-top:1em;
-	overflow:hidden;
+	overflow:auto;
+}
+
+#status li { 
+	border-bottom:1px solid #666;
+	padding:0 .5em;
 }

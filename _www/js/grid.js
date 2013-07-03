@@ -3,7 +3,6 @@
  */
 function Grid(c, width, height) 
 {
-	var COORDS_DELIMITER = ':';
 
 	var self = this;
 
@@ -11,6 +10,9 @@ function Grid(c, width, height)
 	self.tileSize = 20;
 	self.tileRenderer = new TileRenderer(c, self);
 	self.tiles = {};
+	self.COORDS_DELIMITER = ':';
+
+	var COORDS_DELIMITER = self.COORDS_DELIMITER;
 
 	/**
 	 * Draw the game grid
@@ -90,6 +92,40 @@ function Grid(c, width, height)
 	}
 
 	/**
+	 * Update a tile
+	 *
+	 * @param int x X axis coordinate
+	 * @param int y Y axis coordinate
+	 * @param object properties The properties to update
+	 *
+	 * @return void
+	 */
+	self.updateTile = function(x,y,properties)
+	{
+		var tileKey = self.getTileKey(x,y);
+		if( self.tiles.hasOwnProperty(tileKey) ) {
+			for(var property in properties) {
+				var value = properties[property];
+				self.tiles[ tileKey ][ property ] = value;
+			}
+		}
+	};
+
+	/**
+	 * Execute a function on the whole grid
+	 *
+	 * @return object
+	 */
+	self.iterate = function(callback)
+	{
+		for(var x=0; x < width; x++) {
+			for(var y=0; y < height; y++) {
+				callback( self.getTile(x,y) );
+			}
+		}
+	};
+
+	/**
 	 * Given a mouse click event, find the corresponding grid coordinates
 	 */
 	self.getCoordinates = function(x,y)
@@ -146,9 +182,20 @@ function Grid(c, width, height)
 			area = 1;
 		}
 
-		for(var nx = x-area; nx < x+area; nx++) {
-			for(var ny = y-area; ny < y+area; ny++) {
-				tileKey = self.getTileKey(nx, ny);
+		for(var nx = x-area; nx <= x+area; nx++) {
+			//Skip the center tile of course
+			if( nx !== x ) {
+				tileKey = self.getTileKey(nx, y);
+				if( self.tiles.hasOwnProperty( tileKey ) ) {
+					neighbours.push(self.tiles[tileKey]);
+				}
+			}
+		}
+
+		for(var ny = y-area; ny <= y+area; ny++) {
+			//Skip the center tile of course
+			if( ny !== y ) {
+				tileKey = self.getTileKey(x, ny);
 				if( self.tiles.hasOwnProperty( tileKey ) ) {
 					neighbours.push(self.tiles[tileKey]);
 				}
