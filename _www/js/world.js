@@ -18,20 +18,6 @@ function World(grid)
 				return;
 			}
 
-			//Did we encounter a pump?
-			// if( tile.type === TILE_PUMP ) {
-			// 	//Check neighbours to see if it is connected to a channel
-			// 	neighbours = grid.getNeighbours(tile.x, tile.y, 1);
-			// 	for(var tileIdx in neighbours) {
-			// 		var neighbour = neighbours[tileIdx];
-			// 		//If it's a channel, fill it with water
-			// 		if( neighbour.type === TILE_CHANNEL ) {
-			// 			grid.updateTile(tile.x, tile.y, {
-			// 				water: 3
-			// 			});
-			// 		}
-			// 	}
-			// }
 			//Did we encounter a channel?
 			if( tile.type === TILE_CHANNEL ) {
 				//Check neighbours
